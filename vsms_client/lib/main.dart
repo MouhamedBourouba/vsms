@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:grpc/grpc.dart';
 import 'package:vsms_client/generated/vsms.pbgrpc.dart';
 
-void main()  async {
+
+final gt = GetIt.instance;
+Future<void> configureDi() async {
   final ch = ClientChannel(
     "localhost",
     port: 8080,
     options: ChannelOptions(credentials: ChannelCredentials.insecure()),
   );
   final stub = DiscoveryClient(ch);
+  gt.registerSingleton(stub);
+}
 
-  final res = await stub.getPeer(GetPeerRequest(peerId: "gg"));
-  print("the shitt has comeeeee ${res.peerId}");
-
+void main()  async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDi();
   runApp(const MyApp());
 }
 
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vsms',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lime),
       ),
       home: const MyHomePage(),
     );
@@ -51,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[const Text('welcome to the chat app of them all')],
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {}),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        final res = await gt.get<DiscoveryClient>().getPeer(GetPeerRequest(peerId: "gg"));
+        print(res.peerId);
+      }),
     );
   }
 }
