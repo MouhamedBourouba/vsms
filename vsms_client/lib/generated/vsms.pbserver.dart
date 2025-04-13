@@ -21,26 +21,35 @@ import 'vsms.pbjson.dart';
 export 'vsms.pb.dart';
 
 abstract class DiscoveryServiceBase extends $pb.GeneratedService {
-  $async.Future<$0.RegisterPeerResponse> registerPeer($pb.ServerContext ctx, $0.RegisterPeerRequest request);
-  $async.Future<$0.GetPeerResponse> getPeer($pb.ServerContext ctx, $0.GetPeerRequest request);
+  $async.Future<$0.RegisterPeerResponse> registerPeer(
+      $pb.ServerContext ctx, $0.RegisterPeerRequest request);
+  $async.Future<$0.GetPeerResponse> getPeer(
+      $pb.ServerContext ctx, $0.GetPeerRequest request);
 
   $pb.GeneratedMessage createRequest($core.String methodName) {
     switch (methodName) {
-      case 'registerPeer': return $0.RegisterPeerRequest();
-      case 'GetPeer': return $0.GetPeerRequest();
-      default: throw $core.ArgumentError('Unknown method: $methodName');
+      case 'registerPeer':
+        return $0.RegisterPeerRequest();
+      case 'GetPeer':
+        return $0.GetPeerRequest();
+      default:
+        throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
 
-  $async.Future<$pb.GeneratedMessage> handleCall($pb.ServerContext ctx, $core.String methodName, $pb.GeneratedMessage request) {
+  $async.Future<$pb.GeneratedMessage> handleCall($pb.ServerContext ctx,
+      $core.String methodName, $pb.GeneratedMessage request) {
     switch (methodName) {
-      case 'registerPeer': return this.registerPeer(ctx, request as $0.RegisterPeerRequest);
-      case 'GetPeer': return this.getPeer(ctx, request as $0.GetPeerRequest);
-      default: throw $core.ArgumentError('Unknown method: $methodName');
+      case 'registerPeer':
+        return this.registerPeer(ctx, request as $0.RegisterPeerRequest);
+      case 'GetPeer':
+        return this.getPeer(ctx, request as $0.GetPeerRequest);
+      default:
+        throw $core.ArgumentError('Unknown method: $methodName');
     }
   }
 
   $core.Map<$core.String, $core.dynamic> get $json => DiscoveryServiceBase$json;
-  $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>> get $messageJson => DiscoveryServiceBase$messageJson;
+  $core.Map<$core.String, $core.Map<$core.String, $core.dynamic>>
+      get $messageJson => DiscoveryServiceBase$messageJson;
 }
-

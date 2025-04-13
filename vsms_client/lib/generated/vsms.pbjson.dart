@@ -37,8 +37,9 @@ const RegisterPeerResponse$json = {
 };
 
 /// Descriptor for `RegisterPeerResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List registerPeerResponseDescriptor = $convert.base64Decode(
-    'ChRSZWdpc3RlclBlZXJSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+final $typed_data.Uint8List registerPeerResponseDescriptor =
+    $convert.base64Decode(
+        'ChRSZWdpc3RlclBlZXJSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 
 @$core.Deprecated('Use getPeerRequestDescriptor instead')
 const GetPeerRequest$json = {
@@ -49,8 +50,8 @@ const GetPeerRequest$json = {
 };
 
 /// Descriptor for `GetPeerRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List getPeerRequestDescriptor = $convert.base64Decode(
-    'Cg5HZXRQZWVyUmVxdWVzdBIXCgdwZWVyX2lkGAEgASgJUgZwZWVySWQ=');
+final $typed_data.Uint8List getPeerRequestDescriptor = $convert
+    .base64Decode('Cg5HZXRQZWVyUmVxdWVzdBIXCgdwZWVyX2lkGAEgASgJUgZwZWVySWQ=');
 
 @$core.Deprecated('Use getPeerResponseDescriptor instead')
 const GetPeerResponse$json = {
@@ -66,4 +67,3 @@ const GetPeerResponse$json = {
 final $typed_data.Uint8List getPeerResponseDescriptor = $convert.base64Decode(
     'Cg9HZXRQZWVyUmVzcG9uc2USFwoHcGVlcl9pZBgBIAEoCVIGcGVlcklkEhsKCXB1YmxpY19pcB'
     'gCIAEoCVIIcHVibGljSXASHwoLcHVibGljX3BvcnQYAyABKAVSCnB1YmxpY1BvcnQ=');
-
