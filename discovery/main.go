@@ -2,33 +2,43 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net"
 	pb "vsms-discovery/grpc/vsms.grpc"
 
 	"google.golang.org/grpc"
+  "google.golang.org/grpc/reflection"
 )
 
 type server struct {
-  pb.UnimplementedDiscoveryServer
+	pb.UnimplementedDiscoveryServer
 }
 
 func (s *server) RegisterPeer(context.Context, *pb.RegisterPeerRequest) (*pb.RegisterPeerResponse, error) {
-  var response = pb.RegisterPeerResponse{Success: true};
-  return &response, nil
+	var response = pb.RegisterPeerResponse{Success: true}
+	return &response, nil
 }
 func (s *server) GetPeer(context.Context, *pb.GetPeerRequest) (*pb.GetPeerResponse, error) {
-  var response = pb.GetPeerResponse{}
-  return &response, nil
+	var response = pb.GetPeerResponse{
+    PeerId: "ggg",
+  }
+	return &response, nil
 }
 
-func main() {
-  lis, err := net.Listen("tcp", "0.0.0.0")
-  if err != nil {
-    log.Fatal("could not listen")
-  }
+const PORT = 8080 
 
-  s := grpc.NewServer()
-  pb.RegisterDiscoveryServer(&s, &server{});
-  s.Serve(lis)
+func main() {
+	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", PORT))
+	if err != nil {
+		log.Fatalf("could not listen %v", err)
+	}
+  
+	s := grpc.NewServer()
+  reflection.Register(s)
+	pb.RegisterDiscoveryServer(s, &server{})
+
+	if  err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }

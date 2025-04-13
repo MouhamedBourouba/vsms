@@ -1,0 +1,25 @@
+syntax = "proto3";
+option go_package = "vsms.grpc";
+
+package vsms;
+
+service Discovery {
+  rpc registerPeer(RegisterPeerRequest) returns (RegisterPeerResponse);
+  rpc GetPeer(GetPeerRequest) returns (GetPeerResponse);
+}
+
+message RegisterPeerRequest {
+  string peer_id = 1;
+  string public_ip = 2;
+  int32 public_port = 3;
+}
+
+message RegisterPeerResponse { bool success = 1; }
+
+message GetPeerRequest { string peer_id = 1; }
+
+message GetPeerResponse {
+  string peer_id = 1;
+  string public_ip = 2;
+  int32 public_port = 3;
+}
