@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:get_it/get_it.dart';
@@ -5,6 +8,7 @@ import 'package:grpc/grpc.dart';
 import 'package:vsms_client/generated/vsms.pbgrpc.dart';
 
 final gt = GetIt.instance;
+
 Future<void> configureDi() async {
   final ch = ClientChannel(
     "localhost",
@@ -15,16 +19,20 @@ Future<void> configureDi() async {
   gt.registerSingleton(stub);
 }
 
+Future<void> regesterDevice() async {
+  String deviceId = await FlutterUdid.udid;
+  String deviceHash = sha256.convert(utf8.encode(deviceId)).toString();
+
+  gt.get<DiscoveryClient>().registerPeer(
+    RegisterPeerRequest(peerId: deviceHash),
+  );
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDi();
   await regesterDevice();
   runApp(const MyApp());
-}
-
-Future<void> regesterDevice() async {
-  String deviceId = await FlutterUdid.udid;
-  gt.get<DiscoveryClient>().registerPeer(RegisterPeerRequest(peerId: deviceId));
 }
 
 class MyApp extends StatelessWidget {
@@ -160,7 +168,7 @@ class SearchScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.search_off, size: 64, color: Colors.grey),
-                SizedBox(height: 12),
+                SizedBox(height: 8),
                 Text(
                   "No results found",
                   style: TextStyle(fontSize: 18, color: Colors.grey),
