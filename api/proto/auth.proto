@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-package vsms;
+package auth;
+option go_package = "/auth";
 
 service AuthService {
   rpc Signup(SignupRequest) returns (SignupResponse);
@@ -15,7 +16,7 @@ message SignupRequest {
 
 message SignupResponse {
   bool success = 1;
-  string message = 2; // Optional message like "User created successfully"
+  string message = 2;
 }
 
 message LoginRequest {
@@ -25,6 +26,6 @@ message LoginRequest {
 
 message LoginResponse {
   bool success = 1;
-  string token = 2; // Optional JWT token or session key
-  string message = 3; // Optional message like "Invalid credentials"
+  string token = 2;
+  string message = 3;
 }

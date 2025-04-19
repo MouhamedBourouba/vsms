@@ -1,7 +1,6 @@
 package main
 
 func startGrpcApi() {
-
 }
 
 func main() {
